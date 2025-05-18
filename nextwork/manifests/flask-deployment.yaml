@@ -1,0 +1,21 @@
+---
+apiVersion: apps/v1
+kind: Deployment # This is a Deployment object
+metadata:
+  name: nextwork-flask-backend
+  namespace: default
+spec: #Specifies the desired state of the Deployment
+  replicas: 3 #Create 3 replicas (Pods) of the applications
+  selector: #Matches pods with lable app : nextwork-flask-backend
+    matchLabels:
+      app: nextwork-flask-backend
+  template: #Define the pod template 
+    metadata: #Ensures Pods have the label that matches matchlabel
+      labels:
+        app: nextwork-flask-backend
+    spec:
+      containers: #Defines Pod level specifications
+        - name: nextwork-flask-backend #names the container.
+          image: 528438655678.dkr.ecr.ap-southeast-1.amazonaws.com/nextwork-flask-backend:latest
+          ports:
+            - containerPort: 8080 #specifies the container port exposed by the backend.
